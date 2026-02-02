@@ -1,0 +1,51 @@
+# ============================================================================
+# Network Config Backup - Global Settings
+# Author: Tamer Khalifa (CCIE #68867)
+# ============================================================================
+
+---
+backup:
+  base_dir: "./backups"
+  git_enabled: true
+  git_auto_commit: true
+  git_branch_per_site: true
+  max_concurrent: 10
+  timeout: 30
+  retries: 2
+  schedule:
+    enabled: false
+    interval: "6h"                      # 1h, 6h, 12h, 24h
+
+diff:
+  enabled: true
+  ignore_lines:
+    - "^ntp clock-period"
+    - "^! Last configuration change"
+    - "^! NVRAM config last updated"
+    - "^Building configuration"
+    - "^Current configuration"
+    - "^!Time:"
+
+compliance:
+  enabled: true
+  rules_dir: "./rules"
+  report_format: "html"                 # html, json, csv
+
+notifications:
+  on_change: true
+  on_failure: true
+  on_compliance_violation: true
+  slack:
+    enabled: false
+    webhook_url: "${SLACK_WEBHOOK}"
+    channel: "#network-changes"
+  email:
+    enabled: false
+    smtp_server: "smtp.company.com"
+    recipients:
+      - "netops@company.com"
+
+logging:
+  level: "INFO"
+  file: "logs/network_backup.log"
+  max_size_mb: 10

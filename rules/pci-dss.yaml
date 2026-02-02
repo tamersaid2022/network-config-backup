@@ -1,0 +1,66 @@
+# ============================================================================
+# Network Config Backup - PCI-DSS Requirements
+# Author: Tamer Khalifa (CCIE #68867)
+# Reference: PCI DSS v4.0
+# ============================================================================
+
+---
+name: "PCI-DSS"
+description: "Payment Card Industry Data Security Standard requirements"
+
+rules:
+  - name: "PCI-1.1: Strong Passwords"
+    description: "Service password encryption must be enabled"
+    pattern: "service password-encryption"
+    match_type: "must_exist"
+    severity: "critical"
+    pci_requirement: "1.1"
+
+  - name: "PCI-1.2: Restrict Telnet"
+    description: "Telnet access must be disabled"
+    pattern: "transport input telnet"
+    match_type: "must_not_exist"
+    severity: "critical"
+    pci_requirement: "1.2"
+
+  - name: "PCI-2.1: No Default Credentials"
+    description: "Default SNMP community strings must be changed"
+    pattern: "snmp-server community public\\|snmp-server community private"
+    match_type: "must_not_exist"
+    severity: "critical"
+    pci_requirement: "2.1"
+
+  - name: "PCI-2.2: SSH Required"
+    description: "SSH version 2 must be the only remote access method"
+    pattern: "ip ssh version 2"
+    match_type: "must_exist"
+    severity: "critical"
+    pci_requirement: "2.2"
+
+  - name: "PCI-8.2: Authentication"
+    description: "Enable secret must be configured"
+    pattern: "enable secret"
+    match_type: "must_exist"
+    severity: "critical"
+    pci_requirement: "8.2"
+
+  - name: "PCI-10.1: Audit Logs"
+    description: "Logging must be configured and forwarded"
+    pattern: "logging host\\|logging \\d+\\.\\d+"
+    match_type: "must_exist"
+    severity: "critical"
+    pci_requirement: "10.1"
+
+  - name: "PCI-10.4: Time Sync"
+    description: "NTP must be configured for accurate timestamps"
+    pattern: "ntp server"
+    match_type: "must_exist"
+    severity: "high"
+    pci_requirement: "10.4"
+
+  - name: "PCI-10.5: Login Banner"
+    description: "Login banner warning unauthorized access"
+    pattern: "banner login"
+    match_type: "must_exist"
+    severity: "medium"
+    pci_requirement: "10.5"

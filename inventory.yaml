@@ -1,0 +1,68 @@
+# ============================================================================
+# Network Config Backup - Device Inventory
+# Author: Tamer Khalifa (CCIE #68867)
+# ============================================================================
+
+---
+defaults:
+  username: "${NETWORK_USER}"
+  password: "${NETWORK_PASSWORD}"
+  timeout: 30
+  secret: "${ENABLE_SECRET}"
+
+groups:
+  # ── Datacenter ──────────────────────────────────────────────
+  datacenter:
+    device_type: cisco_ios
+    commands:
+      - "show running-config"
+      - "show startup-config"
+      - "show version"
+    devices:
+      - hostname: core-router-01
+        host: 192.168.1.1
+      - hostname: core-router-02
+        host: 192.168.1.2
+
+  # ── Distribution Layer ──────────────────────────────────────
+  distribution:
+    device_type: cisco_ios
+    commands:
+      - "show running-config"
+      - "show vlan brief"
+    devices:
+      - hostname: dist-sw-01
+        host: 192.168.1.10
+      - hostname: dist-sw-02
+        host: 192.168.1.11
+
+  # ── Nexus Datacenter ────────────────────────────────────────
+  nexus:
+    device_type: cisco_nxos
+    commands:
+      - "show running-config"
+      - "show vlan"
+      - "show vpc"
+    devices:
+      - hostname: nexus-01
+        host: 192.168.2.1
+
+  # ── Branch Routers ──────────────────────────────────────────
+  branch:
+    device_type: cisco_ios
+    commands:
+      - "show running-config"
+    devices:
+      - hostname: branch-router-01
+        host: 10.1.1.1
+      - hostname: branch-router-02
+        host: 10.2.1.1
+
+  # ── Firewalls ───────────────────────────────────────────────
+  firewalls:
+    device_type: paloalto_panos
+    commands:
+      - "show config running"
+    devices:
+      - hostname: firewall-01
+        host: 192.168.3.1

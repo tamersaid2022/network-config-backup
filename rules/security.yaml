@@ -1,0 +1,63 @@
+# ============================================================================
+# Network Config Backup - Security Compliance Rules
+# Author: Tamer Khalifa (CCIE #68867)
+# ============================================================================
+
+---
+name: "Security Standards"
+description: "Core security configuration compliance checks"
+
+rules:
+  - name: "Password Encryption"
+    description: "Ensure password encryption is enabled"
+    pattern: "service password-encryption"
+    match_type: "must_exist"
+    severity: "critical"
+
+  - name: "Enable Secret"
+    description: "Ensure enable secret is configured (not enable password)"
+    pattern: "enable secret"
+    match_type: "must_exist"
+    severity: "critical"
+
+  - name: "No Plaintext Passwords"
+    description: "No plaintext passwords should exist in config"
+    pattern: "^password \\w+"
+    match_type: "must_not_exist"
+    severity: "critical"
+
+  - name: "SSH Version 2"
+    description: "SSH version 2 must be configured"
+    pattern: "ip ssh version 2"
+    match_type: "must_exist"
+    severity: "critical"
+
+  - name: "No Telnet Access"
+    description: "Telnet must not be allowed on VTY lines"
+    pattern: "transport input telnet"
+    match_type: "must_not_exist"
+    severity: "critical"
+
+  - name: "VTY Access Control"
+    description: "VTY lines must have access-class applied"
+    pattern: "access-class \\S+ in"
+    match_type: "must_exist"
+    severity: "high"
+
+  - name: "Console Timeout"
+    description: "Console line must have exec-timeout configured"
+    pattern: "exec-timeout \\d+ \\d+"
+    match_type: "must_exist"
+    severity: "high"
+
+  - name: "Disable HTTP Server"
+    description: "HTTP server should be disabled"
+    pattern: "no ip http server"
+    match_type: "must_exist"
+    severity: "high"
+
+  - name: "Disable HTTPS Server"
+    description: "HTTPS server should be disabled unless required"
+    pattern: "no ip http secure-server"
+    match_type: "must_exist"
+    severity: "medium"

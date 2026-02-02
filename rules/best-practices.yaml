@@ -1,0 +1,63 @@
+# ============================================================================
+# Network Config Backup - Best Practices Rules
+# Author: Tamer Khalifa (CCIE #68867)
+# ============================================================================
+
+---
+name: "Best Practices"
+description: "Network device configuration best practices"
+
+rules:
+  - name: "NTP Configured"
+    description: "NTP server must be configured for time sync"
+    pattern: "ntp server"
+    match_type: "must_exist"
+    severity: "high"
+
+  - name: "Logging Buffered"
+    description: "Local logging buffer should be configured"
+    pattern: "logging buffered"
+    match_type: "must_exist"
+    severity: "medium"
+
+  - name: "Syslog Server"
+    description: "Remote syslog server should be configured"
+    pattern: "logging host\\|logging \\d+\\.\\d+\\.\\d+\\.\\d+"
+    match_type: "must_exist"
+    severity: "medium"
+
+  - name: "Login Banner"
+    description: "Login banner must be configured"
+    pattern: "banner login"
+    match_type: "must_exist"
+    severity: "medium"
+
+  - name: "Domain Lookup Disabled"
+    description: "DNS lookup should be disabled to prevent CLI delays"
+    pattern: "no ip domain-lookup\\|no ip domain lookup"
+    match_type: "must_exist"
+    severity: "low"
+
+  - name: "Timestamps on Logs"
+    description: "Timestamps should be enabled on log and debug messages"
+    pattern: "service timestamps log datetime"
+    match_type: "must_exist"
+    severity: "low"
+
+  - name: "SNMP Community"
+    description: "SNMP community string should be configured"
+    pattern: "snmp-server community"
+    match_type: "must_exist"
+    severity: "medium"
+
+  - name: "CDP Disabled Globally"
+    description: "CDP should be disabled on external-facing interfaces"
+    pattern: "no cdp run"
+    match_type: "should_exist"
+    severity: "low"
+
+  - name: "Archive Configuration"
+    description: "Configuration archive should be enabled"
+    pattern: "archive"
+    match_type: "should_exist"
+    severity: "low"
